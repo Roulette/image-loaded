@@ -12,7 +12,11 @@ function loaded(image, callback) {
 
   if (!image.nodeName) return callback(new Error('First argument must be an image element'))
   if (image.nodeName.toLowerCase() !== 'img') return callback(new Error('Element supplied is not an image'))
-  if (image.src  && image.complete && image.naturalWidth !== undefined) return callback(null, true)
+  if (image.src  && image.complete && image.naturalWidth !== undefined) {
+    callback(null, true);
+    return true;
+  
+  }
 
   old = !image.addEventListener
 
@@ -36,6 +40,8 @@ function loaded(image, callback) {
     image.src = BLANK
     image.src = src
   }
+  
+  return false;
 }
 
 module.exports = loaded
